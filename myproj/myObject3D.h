@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <set>
 #include <glm/glm.hpp>
 
 // speeds up the reading part but ignores obj files with quad faces

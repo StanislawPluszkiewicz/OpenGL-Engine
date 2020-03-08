@@ -180,17 +180,51 @@ void myObject3D::normalize()
 
 void myObject3D::computeNormals()
 {
-	m_Normals.reserve(m_Vertices.size());
+	std::map <int, std::set<int> > fpv; // Faces per vertex
+	std::vector <glm::vec3> faceNormals;
+	faceNormals.reserve(m_Vertices.size());
+	m_Normals.reserve(m_Indices.size());
+
 	for (auto it = this->m_Indices.begin();
 		it != this->m_Indices.end();
 		std::advance(it, 1))
 	{
 		glm::ivec3 current = *it;
+
+		auto fill = [&](int i) -> void
+		{
+			if (fpv.find(current[i]) == fpv.end())
+				fpv[current[i]] = std::set<int>();
+			fpv[current[i]].insert(current[(i + 1 + 3) % 3]); // next 
+			fpv[current[i]].insert(current[(i - 1 + 3) % 3]); // prev
+		};
+		fill(0);
+		fill(1);
+		fill(2);
+		
 		glm::vec3 face_normal = glm::cross(
 			this->m_Vertices[current[1]] - this->m_Vertices[current[0]],
 			this->m_Vertices[current[2]] - this->m_Vertices[current[1]]);
 		face_normal = glm::normalize(face_normal);
-		m_Normals.emplace_back(face_normal);
+		faceNormals.emplace_back(face_normal);
+	}
+
+	for (auto it = fpv.begin();
+		it != fpv.end();
+		std::advance(it, 1))
+	{
+		const std::set<int>& adjacent_faces = it->second;
+		glm::vec3 average;
+		for (auto setIt = adjacent_faces.begin();
+			setIt != adjacent_faces.end();
+			std::advance(setIt, 1))
+		{
+			int face_index = *setIt;
+			average += faceNormals[face_index];
+		}
+		average /= adjacent_faces.size();
+		average = glm::normalize(average);
+		m_Normals.emplace_back(average);
 	}
 }
 
