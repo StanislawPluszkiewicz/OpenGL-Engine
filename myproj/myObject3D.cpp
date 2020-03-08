@@ -180,8 +180,18 @@ void myObject3D::normalize()
 
 void myObject3D::computeNormals()
 {
-	m_Normals.assign(m_Vertices.size(), glm::vec3(0.0f, 0.0f, 0.0f));
-	//TODO
+	m_Normals.reserve(m_Vertices.size());
+	for (auto it = this->m_Indices.begin();
+		it != this->m_Indices.end();
+		std::advance(it, 1))
+	{
+		glm::ivec3 current = *it;
+		glm::vec3 face_normal = glm::cross(
+			this->m_Vertices[current[1]] - this->m_Vertices[current[0]],
+			this->m_Vertices[current[2]] - this->m_Vertices[current[1]]);
+		face_normal = glm::normalize(face_normal);
+		m_Normals.emplace_back(face_normal);
+	}
 }
 
 void myObject3D::createObjectBuffers()
