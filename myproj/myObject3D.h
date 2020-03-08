@@ -1,7 +1,13 @@
 #pragma once
 
+#include <ctime>
+#include <string>
+#include <iostream>
 #include <vector>
 #include <glm/glm.hpp>
+
+// speeds up the reading part but ignores obj files with quad faces
+// #define IGNORE_QUADS_OBJ_FILES
 
 class myShader;
 class myCamera;
@@ -9,9 +15,9 @@ class myCamera;
 class myObject3D
 {
 public:
-	std::vector<glm::vec3> vertices;
-	std::vector<glm::ivec3> indices;
-	std::vector<glm::vec3> normals;
+	std::vector<glm::vec3> m_Vertices;
+	std::vector<glm::ivec3> m_Indices;
+	std::vector<glm::vec3> m_Normals;
 
 	glm::mat4 model_matrix;
 

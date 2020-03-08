@@ -209,7 +209,7 @@ int main(int argc, char *argv[])
 		shader1->setUniform("input_color", glm::vec4(1, 1, 1, 0));
 		glPointSize(6.0f);
 		glBegin(GL_POINTS);
-		 glVertex3fv(&picked_point[0]);
+			glVertex3fv(&picked_point[0]);
   	    glEnd();
 
 		SDL_GL_SwapWindow(window);

@@ -19,11 +19,11 @@ using namespace std;
 myObject3D::myObject3D() {
 	model_matrix = glm::mat4(1.0f);
 
-	vertices.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
-	vertices.push_back(glm::vec3(0.5f, 0.0f, 0.0f));
-	vertices.push_back(glm::vec3(0.5f, 0.5f, 0.0f));
+	m_Vertices.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
+	m_Vertices.push_back(glm::vec3(0.5f, 0.0f, 0.0f));
+	m_Vertices.push_back(glm::vec3(0.5f, 0.5f, 0.0f));
 
-	indices.push_back(glm::ivec3(0, 1, 2));
+	m_Indices.push_back(glm::ivec3(0, 1, 2));
 
 	assert(glBindBuffer != 0);
 	assert(glBindVertexArray != 0);
@@ -51,14 +51,97 @@ myObject3D::~myObject3D()
 }
 
 void myObject3D::clear() {
-	vector<glm::vec3> empty; vertices.swap(empty);
-	normals.swap(empty);
-	vector<glm::ivec3> empty2; indices.swap(empty2);
+	vector<glm::vec3> empty; m_Vertices.swap(empty);
+	m_Normals.swap(empty);
+	vector<glm::ivec3> empty2; m_Indices.swap(empty2);
 }
 
 bool myObject3D::readMesh(string filename)
 {
-	//TODO
+	clock_t start_time = std::clock();
+	try
+	{
+		int verticies_count = 0, faces_count = 0;
+		std::ifstream stream(filename);
+
+		stream >> verticies_count >> faces_count;
+		this->m_Vertices.reserve(verticies_count);
+		this->m_Indices.reserve(faces_count);
+		// std::cout << verticies_count << " " << faces_count << std::endl;
+
+#ifdef IGNORE_QUADS_OBJ_FILES
+
+		char c = 0;
+		float x, y, z;
+
+		do
+		{
+			stream >> c >> x >> y >> z;
+			m_Vertices.emplace_back(x, y, z);
+		} while (stream.good() && c == 'v');
+
+		do
+		{
+			stream >> c >> x >> y >> z;
+			// indicies in obj file start from 1
+			m_Indices.emplace_back(x - 1, y - 1, z - 1);
+		} while (stream.good() && c == 'f');
+		
+#else 
+		char c = 0;
+		float x, y, z;
+		int xint, yint, zint, wint;
+		std::string type, typeVertice = "v", typeFace = "f";
+		bool firstFace = true;
+		bool facesAreQuads = false;
+		std::string line;
+		while (std::getline(stream, line))
+		{
+			std::stringstream myline(line);
+			myline >> type;
+			if (type == typeVertice)
+			{
+				myline >> x >> y >> z;
+				m_Vertices.emplace_back(x, y, z);
+			}
+			else if (type == typeFace)
+			{
+				if (firstFace)
+				{
+					int elementCount = 0;
+					int pos = 0;
+					while ((pos = line.find(" ")) != line.npos)
+					{
+						line = line.substr(pos + 1);
+						++elementCount;
+					}
+					facesAreQuads = (elementCount == 4);
+					firstFace = false;
+					std::cout << facesAreQuads;
+				}
+				if (facesAreQuads)
+				{
+					myline >> xint >> yint >> zint >> wint;
+					m_Indices.emplace_back(xint - 1, yint - 1, zint - 1);
+					m_Indices.emplace_back(xint - 1, zint - 1, wint - 1);
+				}
+				else // triangles
+				{
+					myline >> xint >> yint >> zint;
+					m_Indices.emplace_back(xint - 1, yint - 1, zint - 1);
+				}
+			}
+			type = "";
+		}
+#endif
+		stream.close();
+		std::cout << "Read file " << filename << " in " << std::clock() << " ms." << std::endl;
+		return true;
+	}
+	catch (...)
+	{
+		std::cerr << "[ERROR]: Failed to read " << filename << "." << std::endl;
+	}
 	return false;
 }
 
@@ -66,38 +149,38 @@ void myObject3D::normalize()
 {
 	unsigned int tmpxmin = 0, tmpymin = 0, tmpzmin = 0, tmpxmax = 0, tmpymax = 0, tmpzmax = 0;
 
-	for (unsigned i = 0; i<vertices.size(); i++) {
-		if (vertices[i].x < vertices[tmpxmin].x) tmpxmin = i;
-		if (vertices[i].x > vertices[tmpxmax].x) tmpxmax = i;
+	for (unsigned i = 0; i<m_Vertices.size(); i++) {
+		if (m_Vertices[i].x < m_Vertices[tmpxmin].x) tmpxmin = i;
+		if (m_Vertices[i].x > m_Vertices[tmpxmax].x) tmpxmax = i;
 
-		if (vertices[i].y < vertices[tmpymin].y) tmpymin = i;
-		if (vertices[i].y > vertices[tmpymax].y) tmpymax = i;
+		if (m_Vertices[i].y < m_Vertices[tmpymin].y) tmpymin = i;
+		if (m_Vertices[i].y > m_Vertices[tmpymax].y) tmpymax = i;
 
-		if (vertices[i].z < vertices[tmpzmin].z) tmpzmin = i;
-		if (vertices[i].z > vertices[tmpzmax].z) tmpzmax = i;
+		if (m_Vertices[i].z < m_Vertices[tmpzmin].z) tmpzmin = i;
+		if (m_Vertices[i].z > m_Vertices[tmpzmax].z) tmpzmax = i;
 	}
 
-	float xmin = vertices[tmpxmin].x, xmax = vertices[tmpxmax].x,
-		ymin = vertices[tmpymin].y, ymax = vertices[tmpymax].y,
-		zmin = vertices[tmpzmin].z, zmax = vertices[tmpzmax].z;
+	float xmin = m_Vertices[tmpxmin].x, xmax = m_Vertices[tmpxmax].x,
+		ymin = m_Vertices[tmpymin].y, ymax = m_Vertices[tmpymax].y,
+		zmin = m_Vertices[tmpzmin].z, zmax = m_Vertices[tmpzmax].z;
 
 	float scale = ((xmax - xmin) <= (ymax - ymin)) ? (xmax - xmin) : (ymax - ymin);
 	scale = (scale >= (zmax - zmin)) ? scale : (zmax - zmin);
 
-	for (unsigned int i = 0; i<vertices.size(); i++) {
-		vertices[i].x -= (xmax + xmin) / 2;
-		vertices[i].y -= (ymax + ymin) / 2;
-		vertices[i].z -= (zmax + zmin) / 2;
+	for (unsigned int i = 0; i<m_Vertices.size(); i++) {
+		m_Vertices[i].x -= (xmax + xmin) / 2;
+		m_Vertices[i].y -= (ymax + ymin) / 2;
+		m_Vertices[i].z -= (zmax + zmin) / 2;
 
-		vertices[i].x /= scale;
-		vertices[i].y /= scale;
-		vertices[i].z /= scale;
+		m_Vertices[i].x /= scale;
+		m_Vertices[i].y /= scale;
+		m_Vertices[i].z /= scale;
 	}
 }
 
 void myObject3D::computeNormals()
 {
-	normals.assign(vertices.size(), glm::vec3(0.0f, 0.0f, 0.0f));
+	m_Normals.assign(m_Vertices.size(), glm::vec3(0.0f, 0.0f, 0.0f));
 	//TODO
 }
 
@@ -116,11 +199,11 @@ void myObject3D::displayObject(myShader *shader)
 	shader->setUniform("input_color", glm::vec4(1, 1, 0, 0));
 
 	glBegin(GL_TRIANGLES);
-	for (unsigned int i = 0; i < indices.size(); ++i)
+	for (unsigned int i = 0; i < m_Indices.size(); ++i)
 	{
-		glVertex3fv(&vertices[indices[i][0]][0]);
-		glVertex3fv(&vertices[indices[i][1]][0]);
-		glVertex3fv(&vertices[indices[i][2]][0]);
+		glVertex3fv(&m_Vertices[m_Indices[i][0]][0]);
+		glVertex3fv(&m_Vertices[m_Indices[i][1]][0]);
+		glVertex3fv(&m_Vertices[m_Indices[i][2]][0]);
 	}
 	glEnd();
 }
@@ -131,10 +214,10 @@ void myObject3D::displayNormals(myShader *shader)
 	shader->setUniform("input_color", glm::vec4(0, 0, 1, 0));
 
 	glBegin(GL_LINES);
-	for (unsigned int i = 0; i < vertices.size(); i++)
+	for (unsigned int i = 0; i < m_Vertices.size(); i++)
 	{
-		glm::vec3 v = vertices[i] + normals[i] / 10.0f;
-		glVertex3fv(&vertices[i][0]);
+		glm::vec3 v = m_Vertices[i] + m_Normals[i] / 10.0f;
+		glVertex3fv(&m_Vertices[i][0]);
 		glVertex3fv(&v[0]);
 	}
 	glEnd();
@@ -158,12 +241,12 @@ glm::vec3 myObject3D::closestVertex(glm::vec3 ray, glm::vec3 starting_point)
 	unsigned int min_index = 0;
 
 	ray = glm::normalize(ray);
-	for (unsigned int i = 0;i < vertices.size();i++)
+	for (unsigned int i = 0;i < m_Vertices.size();i++)
 	{
-		float dotp = glm::dot(ray, vertices[i] - starting_point);
+		float dotp = glm::dot(ray, m_Vertices[i] - starting_point);
 		if (dotp < 0) continue;
 
-		float oq = glm::distance(starting_point, vertices[i]);
+		float oq = glm::distance(starting_point, m_Vertices[i]);
 		float d = oq*oq - dotp*dotp;
 		if (d < min)
 		{
@@ -171,6 +254,6 @@ glm::vec3 myObject3D::closestVertex(glm::vec3 ray, glm::vec3 starting_point)
 			min_index = i;
 		}
 	}
-	return vertices[min_index];
+	return m_Vertices[min_index];
 }
 
