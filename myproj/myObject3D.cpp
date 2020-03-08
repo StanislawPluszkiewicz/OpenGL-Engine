@@ -19,11 +19,11 @@ using namespace std;
 myObject3D::myObject3D() {
 	model_matrix = glm::mat4(1.0f);
 
-	m_Vertices.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
-	m_Vertices.push_back(glm::vec3(0.5f, 0.0f, 0.0f));
-	m_Vertices.push_back(glm::vec3(0.5f, 0.5f, 0.0f));
-
-	m_Indices.push_back(glm::ivec3(0, 1, 2));
+	// m_Vertices.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
+	// m_Vertices.push_back(glm::vec3(0.5f, 0.0f, 0.0f));
+	// m_Vertices.push_back(glm::vec3(0.5f, 0.5f, 0.0f));
+	// 
+	// m_Indices.push_back(glm::ivec3(0, 1, 2));
 
 	assert(glBindBuffer != 0);
 	assert(glBindVertexArray != 0);
@@ -58,7 +58,7 @@ void myObject3D::clear() {
 
 bool myObject3D::readMesh(string filename)
 {
-	clock_t start_time = std::clock();
+	// clock_t start_time = std::clock();
 	try
 	{
 		int verticies_count = 0, faces_count = 0;
@@ -135,7 +135,7 @@ bool myObject3D::readMesh(string filename)
 		}
 #endif
 		stream.close();
-		std::cout << "Read file " << filename << " in " << std::clock() << " ms." << std::endl;
+		// std::cout << "Read file " << filename << " in " << std::clock() << " ms." << std::endl;
 		return true;
 	}
 	catch (...)
@@ -222,8 +222,14 @@ void myObject3D::computeNormals()
 			int face_index = *setIt;
 			average += faceNormals[face_index];
 		}
-		average /= adjacent_faces.size();
+		average /= (float) adjacent_faces.size();
+
+		float norm = average.length();
 		average = glm::normalize(average);
+		// average.x /= norm;
+		// average.y /= norm;
+		// average.z /= norm;
+
 		m_Normals.emplace_back(average);
 	}
 }
