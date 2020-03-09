@@ -102,20 +102,20 @@ glm::mat4 myCamera::viewMatrix() const
 
 void myCamera::moveForward(float size)
 {
-	//TODO
+	this->camera_eye += this->camera_forward * size;
 }
 
 void myCamera::moveBack(float size)
 {
-	//TODO
+	this->camera_eye += this->camera_forward * -size;
 }
 
 void myCamera::turnLeft(float size)
 {
-	//TODO
+	rotate(this->camera_forward, this->camera_up, size);
 }
 
 void myCamera::turnRight(float size)
 {
-	//TODO
+	rotate(this->camera_forward, this->camera_up, -size);
 }
