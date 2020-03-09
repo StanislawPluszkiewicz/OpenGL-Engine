@@ -225,9 +225,9 @@ void myObject3D::computeNormals()
 
 		float norm = average.length();
 		average = glm::normalize(average);
-		average.x /= norm;
-		average.y /= norm;
-		average.z /= norm;
+		// average.x /= norm;
+		// average.y /= norm;
+		// average.z /= norm;
 
 		m_Normals.emplace_back(average);
 	}
