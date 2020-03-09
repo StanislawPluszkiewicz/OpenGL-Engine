@@ -238,6 +238,7 @@ void myObject3D::createObjectBuffers()
 	vao = new VAO();
 	vao->storePositions(m_Vertices, 0);
 	vao->storeIndices(m_Indices);
+	vao->storeNormals(m_Normals, 1);
 }
 
 void myObject3D::computeTexturecoordinates_plane()

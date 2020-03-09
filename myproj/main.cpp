@@ -46,6 +46,8 @@ myShader *shader1;
 //Point to draw to illustrate picking
 glm::vec3 picked_point;
 
+bool isSilhouetteOn = false;
+
 // Process the event.  
 void processEvents(SDL_Event current_event)
 {
@@ -86,6 +88,20 @@ void processEvents(SDL_Event current_event)
 				obj1 = obj_tmp;
 				obj1->computeNormals();
 				obj1->createObjectBuffers();
+			}
+			else if (current_event.key.keysym.sym == SDLK_s)
+			{
+				if (shader1 != nullptr) delete shader1;
+				if (isSilhouetteOn)
+				{
+					shader1 = new myShader("shaders/light.vert.glsl", "shaders/light.frag.glsl");
+				}
+				else
+				{
+					shader1 = new myShader("shaders/light.vert.glsl", "shaders/silhouette.frag.glsl");
+				}
+
+				isSilhouetteOn = !isSilhouetteOn;
 			}
 			break;
 		}
@@ -203,6 +219,7 @@ int main(int argc, char *argv[])
 
 		glm::mat4 view_matrix = cam1->viewMatrix();
 		shader1->setUniform("myview_matrix", view_matrix);
+		shader1->setUniform("mynormal_matrix", glm::transpose(glm::inverse(glm::mat3(view_matrix))));
 
 		obj1->displayObject(shader1);
 		obj1->displayNormals(shader1);

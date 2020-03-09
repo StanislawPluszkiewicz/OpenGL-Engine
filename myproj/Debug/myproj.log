@@ -1,4 +1,7 @@
-﻿  myObject3D.cpp
-c:\rest\opengl git\opengl-engine\myproj\myobject3d.cpp(226): warning C4244: 'initialisation' : conversion de 'glm::length_t' en 'float', perte possible de données
+﻿cl : Ligne de commande warning D9030: '/Gm' incompatible avec le multitraitement ; commutateur /MP ignoré
+  main.cpp
+  Génération de code en cours...
+  Ignoré... (aucune modification pertinente détectée)
+  myCamera.cpp
   myproj.vcxproj -> C:\rest\opengl git\OpenGL-Engine\Debug\myproj.exe
   myproj.vcxproj -> C:\rest\opengl git\OpenGL-Engine\Debug\myproj.pdb (Full PDB)

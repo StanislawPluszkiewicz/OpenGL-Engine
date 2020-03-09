@@ -10,4 +10,7 @@
     <LocalDebuggerEnvironment>PATH=.\libs;.\bin;.\bin\release;%PATH%</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
+  <PropertyGroup>
+    <ShowAllFiles>false</ShowAllFiles>
+  </PropertyGroup>
 </Project>
