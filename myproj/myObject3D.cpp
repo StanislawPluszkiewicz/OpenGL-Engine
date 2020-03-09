@@ -185,18 +185,17 @@ void myObject3D::computeNormals()
 	faceNormals.reserve(m_Vertices.size());
 	m_Normals.reserve(m_Indices.size());
 
-	for (auto it = this->m_Indices.begin();
-		it != this->m_Indices.end();
-		std::advance(it, 1))
+	for (int iCurrentFace = 0;
+		iCurrentFace != this->m_Indices.size();
+		++iCurrentFace)
 	{
-		glm::ivec3 current = *it;
+		glm::ivec3 current = this->m_Indices[iCurrentFace];
 
 		auto fill = [&](int i) -> void
 		{
 			if (fpv.find(current[i]) == fpv.end())
 				fpv[current[i]] = std::set<int>();
-			fpv[current[i]].insert(current[(i + 1 + 3) % 3]); // next 
-			fpv[current[i]].insert(current[(i - 1 + 3) % 3]); // prev
+			fpv[current[i]].insert(iCurrentFace); // next 
 		};
 		fill(0);
 		fill(1);
@@ -226,9 +225,9 @@ void myObject3D::computeNormals()
 
 		float norm = average.length();
 		average = glm::normalize(average);
-		// average.x /= norm;
-		// average.y /= norm;
-		// average.z /= norm;
+		average.x /= norm;
+		average.y /= norm;
+		average.z /= norm;
 
 		m_Normals.emplace_back(average);
 	}
