@@ -6,6 +6,8 @@
 #include <vector>
 #include <glm/glm.hpp>
 
+#include "VAO.h"
+
 class myShader;
 class myCamera;
 
@@ -17,6 +19,8 @@ public:
 	std::vector<glm::vec3> m_Normals;
 
 	glm::mat4 model_matrix;
+	
+	VAO* vao;
 
 	myObject3D();
 	~myObject3D();

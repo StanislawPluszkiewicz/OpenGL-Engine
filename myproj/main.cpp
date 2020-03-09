@@ -85,6 +85,7 @@ void processEvents(SDL_Event current_event)
 				delete obj1;
 				obj1 = obj_tmp;
 				obj1->computeNormals();
+				obj1->createObjectBuffers();
 			}
 			break;
 		}
@@ -179,7 +180,7 @@ int main(int argc, char *argv[])
 	obj1 = new myObject3D();
 	obj1->readMesh("apple.obj"); 
 	obj1->computeNormals();       
- 
+	obj1->createObjectBuffers();
 
 	cam1 = new myCamera();
 

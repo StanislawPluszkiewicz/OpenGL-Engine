@@ -234,7 +234,11 @@ void myObject3D::computeNormals()
 }
 
 void myObject3D::createObjectBuffers()
-{}
+{
+	vao = new VAO();
+	vao->storePositions(m_Vertices, 0);
+	vao->storeIndices(m_Indices);
+}
 
 void myObject3D::computeTexturecoordinates_plane()
 {}
@@ -247,6 +251,8 @@ void myObject3D::displayObject(myShader *shader)
 	shader->setUniform("mymodel_matrix", model_matrix);
 	shader->setUniform("input_color", glm::vec4(1, 1, 0, 0));
 
+	vao->draw();
+	/*
 	glBegin(GL_TRIANGLES);
 	for (unsigned int i = 0; i < m_Indices.size(); ++i)
 	{
@@ -255,6 +261,7 @@ void myObject3D::displayObject(myShader *shader)
 		glVertex3fv(&m_Vertices[m_Indices[i][2]][0]);
 	}
 	glEnd();
+	*/
 }
 
 void myObject3D::displayNormals(myShader *shader)
