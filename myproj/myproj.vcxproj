@@ -93,12 +93,16 @@
     <ClInclude Include="myCamera.h" />
     <ClInclude Include="myObject3D.h" />
     <ClInclude Include="myShader.h" />
+    <ClInclude Include="VAO.h" />
+    <ClInclude Include="VBO.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="myCamera.cpp" />
     <ClCompile Include="myObject3D.cpp" />
     <ClCompile Include="myShader.cpp" />
+    <ClCompile Include="VAO.cpp" />
+    <ClCompile Include="VBO.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
