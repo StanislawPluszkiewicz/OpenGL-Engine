@@ -112,10 +112,10 @@ void myCamera::moveBack(float size)
 
 void myCamera::turnLeft(float size)
 {
-	rotate(camera_forward, camera_up, size);
+	rotate(this->camera_forward, this->camera_up, size);
 }
 
 void myCamera::turnRight(float size)
 {
-	rotate(camera_forward, camera_up, -size);
+	rotate(this->camera_forward, this->camera_up, -size);
 }
