@@ -1,0 +1,51 @@
+﻿cl : Ligne de commande warning D9030: '/Gm' incompatible avec le multitraitement ; commutateur /MP ignoré
+  myObject3D.cpp
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(183): error C2039: 'set' : n'est pas membre de 'std'
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\map(15): note: voir la déclaration de 'std'
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(183): error C2065: 'set' : identificateur non déclaré
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(183): error C2062: type 'int' inattendu
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(183): error C2976: 'std::map' : nombre d'arguments modèle insuffisant
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\map(72): note: voir la déclaration de 'std::map'
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(183): error C2143: erreur de syntaxe : absence de ';' avant '>'
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(183): error C2059: erreur de syntaxe : '>'
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(196): error C2065: 'fpv' : identificateur non déclaré
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(196): error C2228: la partie gauche de '.find' doit avoir un class/struct/union
+  c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(196): note: le type est 'unknown-type'
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(196): error C2228: la partie gauche de '.end' doit avoir un class/struct/union
+  c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(196): note: le type est 'unknown-type'
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(197): error C2065: 'fpv' : identificateur non déclaré
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(197): error C2039: 'set' : n'est pas membre de 'std'
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\map(15): note: voir la déclaration de 'std'
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(197): error C2065: 'set' : identificateur non déclaré
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(197): error C2062: type 'int' inattendu
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(198): error C2065: 'fpv' : identificateur non déclaré
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(198): error C2228: la partie gauche de '.insert' doit avoir un class/struct/union
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(199): error C2065: 'fpv' : identificateur non déclaré
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(199): error C2228: la partie gauche de '.insert' doit avoir un class/struct/union
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(212): error C2065: 'fpv' : identificateur non déclaré
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(212): error C2228: la partie gauche de '.begin' doit avoir un class/struct/union
+  c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(212): note: le type est 'unknown-type'
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(213): error C3536: 'it' : ne peut pas être utilisé avant d'avoir été initialisé
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(213): error C2065: 'fpv' : identificateur non déclaré
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(213): error C2228: la partie gauche de '.end' doit avoir un class/struct/union
+  c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(213): note: le type est 'unknown-type'
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(216): error C2039: 'set' : n'est pas membre de 'std'
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\map(15): note: voir la déclaration de 'std'
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(216): error C4430: spécificateur de type manquant - int est pris en compte par défaut. Remarque : C++ ne prend pas en charge int par défaut
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(216): error C2143: erreur de syntaxe : absence de ';' avant '<'
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(218): error C2065: 'adjacent_faces' : identificateur non déclaré
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(218): error C2228: la partie gauche de '.begin' doit avoir un class/struct/union
+  c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(218): note: le type est 'unknown-type'
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(219): error C3536: 'setIt' : ne peut pas être utilisé avant d'avoir été initialisé
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(219): error C2065: 'adjacent_faces' : identificateur non déclaré
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(219): error C2228: la partie gauche de '.end' doit avoir un class/struct/union
+  c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(219): note: le type est 'unknown-type'
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(222): error C2100: indirection non conforme
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(225): error C2065: 'adjacent_faces' : identificateur non déclaré
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(225): error C2228: la partie gauche de '.size' doit avoir un class/struct/union
+  c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(225): note: le type est 'unknown-type'
+c:\users\pluszkis\downloads\opengl-engine-master\myproj\myobject3d.cpp(227): warning C4244: 'initialisation' : conversion de 'glm::length_t' en 'float', perte possible de données
+  Génération de code en cours...
+  Compilation en cours...
+  main.cpp
+  Génération de code en cours...
