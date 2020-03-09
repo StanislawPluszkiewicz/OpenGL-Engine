@@ -1,14 +1,10 @@
 #pragma once
 
-#include <ctime>
 #include <string>
 #include <iostream>
-#include <vector>
 #include <set>
+#include <vector>
 #include <glm/glm.hpp>
-
-// speeds up the reading part but ignores obj files with quad faces
-// #define IGNORE_QUADS_OBJ_FILES
 
 class myShader;
 class myCamera;
