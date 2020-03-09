@@ -91,15 +91,7 @@ void processEvents(SDL_Event current_event)
 			}
 			else if (current_event.key.keysym.sym == SDLK_s)
 			{
-				if (shader1 != nullptr) delete shader1;
-				if (isSilhouetteOn)
-				{
-					shader1 = new myShader("shaders/light.vert.glsl", "shaders/light.frag.glsl");
-				}
-				else
-				{
-					shader1 = new myShader("shaders/light.vert.glsl", "shaders/silhouette.frag.glsl");
-				}
+	
 
 				isSilhouetteOn = !isSilhouetteOn;
 			}
@@ -191,7 +183,8 @@ int main(int argc, char *argv[])
 
 	// Setting up OpenGL shaders
 	shader1 = new myShader("shaders/light.vert.glsl", "shaders/light.frag.glsl");
-
+	myShader * shader2 = new myShader("shaders/light.vert.glsl", "shaders/silhouette.frag.glsl");
+	myShader * shaderTmp;
 	// Read up the scene
 	obj1 = new myObject3D();
 	obj1->readMesh("apple.obj"); 
@@ -214,17 +207,29 @@ int main(int argc, char *argv[])
 
 		glViewport(0, 0, cam1->window_width, cam1->window_height);
 
-		glm::mat4 projection_matrix = cam1->projectionMatrix( );
-		shader1->setUniform("myprojection_matrix", projection_matrix);
-
+		glm::mat4 projection_matrix = cam1->projectionMatrix();
 		glm::mat4 view_matrix = cam1->viewMatrix();
-		shader1->setUniform("myview_matrix", view_matrix);
-		shader1->setUniform("mynormal_matrix", glm::transpose(glm::inverse(glm::mat3(view_matrix))));
 
-		obj1->displayObject(shader1);
-		obj1->displayNormals(shader1);
+		if (isSilhouetteOn)
+		{
+			shaderTmp = shader2;
+			shaderTmp->start();
+			shaderTmp->setUniform("myview_matrix", view_matrix);
+			shaderTmp->setUniform("myprojection_matrix", projection_matrix);
+			shaderTmp->setUniform("mynormal_matrix", glm::transpose(glm::inverse(glm::mat3(view_matrix))));
+		}
+		else 
+		{
+			shaderTmp = shader1;
+			shaderTmp->start();
+			shaderTmp->setUniform("input_color", glm::vec4(1, 1, 0, 0));
+			shaderTmp->setUniform("myview_matrix", view_matrix);
+			shaderTmp->setUniform("myprojection_matrix", projection_matrix);
+		}
 
-		shader1->setUniform("input_color", glm::vec4(1, 1, 1, 0));
+		obj1->displayObject(shaderTmp);
+		obj1->displayNormals(shaderTmp);
+
 		glPointSize(6.0f);
 		glBegin(GL_POINTS);
 		 glVertex3fv(&picked_point[0]);

@@ -250,7 +250,7 @@ void myObject3D::computeTexturecoordinates_cylinder()
 void myObject3D::displayObject(myShader *shader)
 {
 	shader->setUniform("mymodel_matrix", model_matrix);
-	shader->setUniform("input_color", glm::vec4(1, 1, 0, 0));
+	//shader->setUniform("input_color", glm::vec4(1, 1, 0, 0));
 
 	vao->draw();
 	/*
@@ -268,7 +268,7 @@ void myObject3D::displayObject(myShader *shader)
 void myObject3D::displayNormals(myShader *shader)
 {
 	shader->setUniform("mymodel_matrix", model_matrix);
-	shader->setUniform("input_color", glm::vec4(0, 0, 1, 0));
+	//shader->setUniform("input_color", glm::vec4(0, 0, 1, 0));
 
 	glBegin(GL_LINES);
 	for (unsigned int i = 0; i < m_Vertices.size(); i++)

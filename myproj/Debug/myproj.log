@@ -1,7 +1,3 @@
-﻿cl : Ligne de commande warning D9030: '/Gm' incompatible avec le multitraitement ; commutateur /MP ignoré
-  main.cpp
-  Génération de code en cours...
-  Ignoré... (aucune modification pertinente détectée)
-  myCamera.cpp
-  myproj.vcxproj -> C:\rest\opengl git\OpenGL-Engine\Debug\myproj.exe
-  myproj.vcxproj -> C:\rest\opengl git\OpenGL-Engine\Debug\myproj.pdb (Full PDB)
+﻿  main.cpp
+  myproj.vcxproj -> C:\Users\rivettie\Desktop\OpenGL\OpenGL-Engine\Debug\myproj.exe
+  myproj.vcxproj -> C:\Users\rivettie\Desktop\OpenGL\OpenGL-Engine\Debug\myproj.pdb (Full PDB)
